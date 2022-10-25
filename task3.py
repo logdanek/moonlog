@@ -17,7 +17,7 @@ def circle(SIZE):
         Функция, рисующая фрактал на основе контактного числа
         окружностей
     """
-    if SIZE <= 4:
+    if SIZE <= 4:   
         return
     for j in range(6):
         circles.color(colors[j])
@@ -26,7 +26,5 @@ def circle(SIZE):
         circle(SIZE // 3)
 
 
-circles.circle(SIZE)
 circle(SIZE)
-circle(SIZE // 3)
 turtle.done()
