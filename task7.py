@@ -1,4 +1,5 @@
 import random
+import sys
 
 
 def two_factorization(some_number):
@@ -24,11 +25,11 @@ def is_prime(potential_prime, ITERATIONS):
                   свидетелей простоты числа potential_prime по Миллеру
     """
     if potential_prime == 1:
-        return 'Хорошая попытка'
+        return False, 1
     if potential_prime == 2:
-        return 'Определенно да!'
+        return True, 1
     if potential_prime % 2 == 0:
-        return 'Очевидно, что нет'
+        return False, 1
     number_of_twoes, multiplier = two_factorization(potential_prime)[0], \
                                   two_factorization(potential_prime)[1]
     for i in range(ITERATIONS):
@@ -41,11 +42,19 @@ def is_prime(potential_prime, ITERATIONS):
                 if second_temp_variable == potential_prime - 1:
                     break
                 if r == number_of_twoes - 1:
-                    return 'Точно составное'
-        return 'Вероятно простое' + '\n' + 'Вероятность, что все-таки составное: ' \
-                + ' ' + str(4 ** (-ITERATIONS))
+                    return False, 1
+        return True, 4 ** (- ITERATIONS)
 
 
-A, B = map(int, input('Введите число на проверку и параметр'
+try:
+    A, B = map(int, input('Введите неотрицательное число на проверку и параметр'
                        + ' точности проверки' + '\n' + 'Ex. 803 6' + '\n').split())
-print(is_prime(A, B))
+except ValueError:
+    print('Недостаточно значений (Ex. 803 6)')
+    sys.exit()
+assert A > 0, 'Число отрицательное!'
+assert B > 0, 'Параметр точности - натуральное число'
+
+print(is_prime(A, B)[0])
+if is_prime(A, B)[0]:
+    print('Вероятность того, что число всё-таки составное: ' + str(is_prime(A, B)[1]))
