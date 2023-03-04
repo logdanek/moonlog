@@ -26,7 +26,7 @@ def is_prime(potential_prime, ITERATIONS):
     """
     if potential_prime == 1:
         return False, 1
-    if potential_prime == 2:
+    if potential_prime == 2 or potential_prime == 3:
         return True, 1
     if potential_prime % 2 == 0:
         return False, 1
